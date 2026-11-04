@@ -1,5 +1,5 @@
 package ht.mbds.tarrouzi.tp1_tarrouzi.jsf;
-import ht.mbds.tarrouzi.tp_tarrouzi.service.GenerateurReponse;
+import ht.mbds.tarrouzi.tp1_tarrouzi.service.GenerateurReponse;
 
 
 import jakarta.faces.application.FacesMessage;
@@ -21,6 +21,16 @@ import java.util.List;
 @Named
 @ViewScoped
 public class Bb implements Serializable {
+
+    private boolean debug=true;
+    public boolean setdebug(boolean debug){
+        debug = !debug;
+        return debug;
+    }
+    public boolean getdebug(){
+
+        return debug;
+    }
 
     /**
      * Rôle "système" que l'on attribuera plus tard à un LLM.
@@ -69,6 +79,9 @@ public class Bb implements Serializable {
      */
     public Bb() {
     }
+
+
+
 
     public String getRoleSysteme() {
         return this.roleSysteme;

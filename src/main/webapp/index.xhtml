@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-
-    <h:outputStylesheet library="css" name="mycsslayout.css"/>
-        <h:outputScript name="js/script.js" target="head"/>
-        <title>Conversation</title>
-
-
+    <h:outputStylesheet name="css/mycsslayout.css"/>
+    <h:outputScript name="js/script.js" target="head"/>
+    <title>Conversation</title>
 </h:head>
-<h:body style="background-color: aquamarine;">
+<h:body>
     <f:view>
 
         <!-- Les éventuels messages d'erreur non liés à un champ particulier sont affichés ici en rouge -->
@@ -21,9 +17,21 @@
 
         <h:form id="form">
 
-            <h:outputText value="Détecteur de palindrome"
-                          style="font-weight: bold; font-size: 20px;"/>
+            <p:outputLabel for="rolesysteme" value="Rôle de l'API : "/>
+            <!-- La valeur choisie dans cette liste déroulante sera affectée
+            à la propriété systemRole du backing bean. Cette liste est figée (disabled)
+            dès qu'une requête a été envoyée au serveur. -->
+            <p:selectOneMenu id="rolesysteme" value="#{bb.roleSysteme}" editable="true"
+                             required="true" requiredMessage="Vous devez indiquer le rôle de l'API"
+                             disabled="#{! bb.roleSystemeChangeable}">
+                <f:selectItems value="#{bb.rolesSysteme}"/>
+            </p:selectOneMenu>
+            <!-- Message d'erreur ici si l'utilisateur oublie d'indiquer un rôle système. -->
+            <h:message for="rolesysteme" errorStyle="color: red" />
 
+            <!-- Si on veut commencer un nouveau chat avec, éventuellement, un autre rôle. -->
+            <h:outputText value="  "/>
+            <h:commandButton value="Nouveau chat" action="#{bb.nouveauChat}" />
 
             <!-- Les éléments de la page sont disposés en deux colonnes :
             question et réponse à gauche et historique de la conversation à droite. -->
@@ -31,6 +39,12 @@
 
                 <h:panelGrid id="panelgauche" columns="1">
                     <h:panelGrid id="questionetreponse" columns="1">
+                        <p:outputPanel style="display:flex; align-items: center; gap: 10px">
+                            <h:outputText value="Mode debug : "/>
+                            <p:toggleSwitch id="debugSwitch" value="#{bb.debug}" styleClass="mb-2" label="Mode debug"/>
+                            <p:tooltip for="debugSwitch"
+                                       value="Active ou non l'affichage du JSON sur les requêtes et réponses du LLM." />
+                        </p:outputPanel>
                         <h:panelGroup>
                             <h:outputText value="Question :"/>
                             <button type="button" onclick="copyToClipboard('question')">Copier question</button>
