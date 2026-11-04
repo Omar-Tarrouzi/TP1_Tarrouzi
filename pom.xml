@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ht.mbds.Tarrouzi</groupId>
-    <artifactId>tp_Tarrouzi</artifactId>
+    <artifactId>tp1_Tarrouzi</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>tp Tarrouzi</name>
+    <name>tp1 Tarrouzi</name>
     <packaging>war</packaging>
 
     <properties>
